@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import UserRoutes from './routes/user.route.js';
-import AuthRoutes from './routes/auth.route.js';
+import userRoutes from './routes/user.route.js';
+import authRoutes from './routes/auth.route.js';
 
 dotenv.config();
 
@@ -17,5 +17,15 @@ app.listen(8081, () =>{
     console.log("Server running on port 8081");
 });
 
-app.use('/api/user', UserRoutes);
-app.use('/api/auth', AuthRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+
+app.use((err,req,res,next) =>{
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(statusCode).json({
+        success:false,
+        statusCode,
+        message,
+    })
+})

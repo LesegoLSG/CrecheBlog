@@ -39,8 +39,9 @@ const SignUp = () => {
 
     const { confirmPassword, ...signUpData } = signup;
 
-    setLoaderEffect(true);
     try {
+      setLoaderEffect(true);
+      setServerError(null);
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -73,7 +74,13 @@ const SignUp = () => {
     >
       {/* Outter white div */}
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h2 className="text-2xl font-bold text-center mb-4">Sign Up</h2>
+        <div className="w-full mb-2">
+          <h2 className="text-2xl font-bold text-center mb-4">
+            {" "}
+            Join Us Today! 🎉
+          </h2>
+          <p className="">Create an account to unlock exclusive features.</p>
+        </div>
         {/* Display errors */}
         {confirmPasswordError && (
           <p className="text-red-500">Passwords do not match</p>
@@ -143,9 +150,6 @@ const SignUp = () => {
           >
             Sign Up
           </button>
-          <div className="w-full ">
-            <p className="text-gray-600 cursor-pointer">Forgot password?</p>
-          </div>
         </form>
         {/* OR Divider */}
         <div className="flex items-center my-4">

@@ -151,10 +151,10 @@ const Header = () => {
           ) : (
             <div className="flex items-center gap-x-2">
               <button className="button-alt hidden md:block ">
-                <Link to="/sign-up">Sign Up for free</Link>
+                <Link to="/signup">Sign Up for free</Link>
               </button>
               <button className="button hidden md:block ">
-                <Link to="/sign-in">Sign In</Link>
+                <Link to="/signin">Sign In</Link>
               </button>
             </div>
           )}

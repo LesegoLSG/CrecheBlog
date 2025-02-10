@@ -1,6 +1,16 @@
 import mongoose from 'mongoose';
  const userSchema = new mongoose.Schema({
-    username:{
+    firstName:{
+        type:String,
+        required:true,
+    
+    },
+    lastName:{
+        type:String,
+        required:true,
+ 
+    },
+    contact:{
         type:String,
         required:true,
         unique:true,
@@ -13,7 +23,11 @@ import mongoose from 'mongoose';
     password:{
         type:String,
         required:true,
-    }
+    },
+    // profilePicture:{
+    //     type:String,
+    //     default:"https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+    // },
  },{timestamps:true});
 
  const User = mongoose.model('User', userSchema);

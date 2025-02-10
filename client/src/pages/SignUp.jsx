@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Components/Reusables/Loader";
+import OAuthButton from "../Components/OAuth/OAuthButton";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -158,12 +158,8 @@ const SignUp = () => {
           <hr className="flex-grow border-t border-gray-300" />
         </div>
         {/* Google sign up button */}
-        <button
-          type="button"
-          className="w-full flex justify-center items-center gap-2 bg-gray-200 text-gray-700 py-3 rounded-md hover:bg-gray-300 transition"
-        >
-          <FcGoogle size={25} /> Sign Up with Google
-        </button>
+        <OAuthButton />
+
         {/* Sign In navigation */}
         <p className="mt-4 text-gray-500">
           Already have an account?{" "}

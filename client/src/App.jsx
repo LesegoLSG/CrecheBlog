@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Header from "./Components/Header/Header";
 import { NavigationProvider } from "./Components/Contexts/NavContext";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
+        <Footer />
       </NavigationProvider>
     </BrowserRouter>
   );

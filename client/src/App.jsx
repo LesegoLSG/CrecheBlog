@@ -7,6 +7,8 @@ import SignUp from "./pages/SignUp";
 import Header from "./Components/Header/Header";
 import { NavigationProvider } from "./Components/Contexts/NavContext";
 import Footer from "./Components/Footer/Footer";
+import PrivateRoute from "./Components/Routes/PrivateRoute";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
@@ -18,6 +20,9 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
         </Routes>
         <Footer />
       </NavigationProvider>

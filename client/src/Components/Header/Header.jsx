@@ -1,18 +1,20 @@
 import React, { useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { LiaSignOutAltSolid } from "react-icons/lia";
 import { useNavigates } from "../Contexts/NavContext";
 import Logo1 from "../../assets/Logos/Logo1.png";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
   const { activeLink } = useNavigates();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  const [currentUser, setCurrentUser] = useState(false);
 
   const location = useLocation();
 
@@ -109,7 +111,7 @@ const Header = () => {
         <div className="flex gap-x-4">
           {currentUser ? (
             <div className="relative">
-              <div className="w-12 h-12">
+              <div className="w-10 h-10">
                 <img
                   alt="Picture"
                   src={
@@ -137,7 +139,7 @@ const Header = () => {
                     <ImProfile />
                     Profile
                   </Link>
-                  <ColorMode toggleTheme={toggleTheme} />
+
                   <hr></hr>
                   {/* Sign out button */}
 

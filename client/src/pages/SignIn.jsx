@@ -8,6 +8,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import OAuthButton from "../Components/OAuth/OAuthButton";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -107,12 +108,7 @@ const SignIn = () => {
           <hr className="flex-grow border-t border-gray-300" />
         </div>
         {/* Google sign up button */}
-        <button
-          type="button"
-          className="w-full flex justify-center items-center gap-2 bg-gray-200 text-gray-700 py-3 rounded-md hover:bg-gray-300 transition"
-        >
-          <FcGoogle size={25} /> Sign Up with Google
-        </button>
+        <OAuthButton />
         {/* Sign In navigation */}
         <p className="mt-4 text-gray-500">
           Don't have an account?{" "}

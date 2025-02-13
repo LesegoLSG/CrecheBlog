@@ -58,3 +58,18 @@ export const signout = (req,res,next) =>{
 
 }
 
+// Delete user functionality
+export const deleteUser = async (req,res,next) =>{
+    if(req.user.id !== req.params.userId){
+        return next(errorHandler(403, 'You are not authorized to delete this user'));
+    }
+
+    try{
+        await User.findByIdAndDelete(req.params.userId);
+        res.status(200).json('User deleted successfuly');
+    }catch(error){
+        next(error);
+    }  
+}
+
+

@@ -108,7 +108,7 @@ const DashboardSideBar = () => {
       </div>
 
       {/* Bottom Menu */}
-      <div className="fixed bottom-0 left-0 w-full bg-[#1f2536] p-3 sm:hidden flex justify-between items-center">
+      <div className="fixed bottom-0 left-0 w-full bg-[#1f2536] p-3 sm:hidden flex justify-between items-center z-50">
         {mainMenus.map((menu, index) => (
           <Link
             key={index}
@@ -136,7 +136,7 @@ const DashboardSideBar = () => {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
-          className="fixed bottom-16 left-0 w-full bg-[#1f2536] p-3 sm:hidden"
+          className="fixed bottom-16 left-0 w-full bg-[#1f2536] p-3 sm:hidden z-50"
         >
           <ul>
             {moreMenus.map((menu, index) => (

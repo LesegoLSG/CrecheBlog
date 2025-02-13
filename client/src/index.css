@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* Normal button */
+    .button {
+        @apply relative min-w-40 px-3 py-2 font-semibold rounded-lg 
+               bg-blue-500 text-white shadow-md overflow-hidden
+               transition-all duration-500 ease-in-out border-2 border-blue-500;
+    }
+
+    .button::before {
+        content: "";
+        @apply absolute inset-0 bg-white 
+               translate-y-full transition-all duration-500 ease-in-out 
+               z-0 ;
+    }
+
+    .button:hover::before {
+        @apply translate-y-0 ;
+    }
+
+    .button span {
+        @apply relative z-10 transition-all duration-500 ease-in-out ;
+    }
+
+    .button:hover span {
+        @apply text-black  ; 
+    }
+    /* Delete button */
+    .button-delete {
+        @apply relative min-w-40 px-3 py-2 font-semibold rounded-lg 
+               bg-red-500 text-white shadow-md overflow-hidden
+               transition-all duration-500 ease-in-out border-2 border-red-500;
+    }
+
+    .button-delete::before {
+        content: "";
+        @apply absolute inset-0 bg-white 
+               translate-y-full transition-all duration-500 ease-in-out 
+               z-0 ;
+    }
+
+    .button-delete:hover::before {
+        @apply translate-y-0 ;
+    }
+
+    .button-delete span {
+        @apply relative z-10 transition-all duration-500 ease-in-out ;
+    }
+
+    .button-delete:hover span {
+        @apply text-black  ; 
+    }
+}

@@ -6,8 +6,12 @@ import {
   updateStart,
   updateSuccess,
   updateFailure,
+  deleteStart,
+  deleteSuccess,
+  deleteFailure,
 } from "../../redux/user/userSlice";
 import Loader from "../Reusables/Loader";
+import ConfirmationModal from "../Reusables/ConfirmationModal";
 
 const DashProfile = () => {
   const dispatch = useDispatch();
@@ -19,6 +23,17 @@ const DashProfile = () => {
     useState(null);
   const [imageFileUploadingError, setImageFileUploadError] = useState(null);
   const filePickerRef = useRef();
+
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  // Open modal
+  const handleOpenDeleteModal = () => {
+    setIsModalDeleteOpen(true);
+  };
+
+  // Close modal
+  const handleCloseDeleteModal = () => {
+    setIsModalDeleteOpen(false);
+  };
 
   //   form data state
   const [formData, setFormData] = useState({
@@ -55,7 +70,7 @@ const DashProfile = () => {
   // Update user details
   const handleSubmitNewData = async (e) => {
     e.preventDefault();
-    // return if formData length is 0
+
     if (Object.keys(formData).length === 0) {
       return;
     }
@@ -80,6 +95,28 @@ const DashProfile = () => {
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
+    }
+  };
+
+  // Delete account functionality
+  const handleDeleteUser = async () => {
+    setIsModalDeleteOpen(false);
+
+    try {
+      dispatch(deleteStart());
+      const response = await fetch(`/api/user/deleteUser/${currentUser._id}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        dispatch(deleteFailure(data.message));
+      } else {
+        dispatch(deleteSuccess(data));
+      }
+      setIsModalDeleteOpen(false);
+    } catch (error) {
+      dispatch(deleteFailure(error.message));
     }
   };
 
@@ -204,7 +241,10 @@ const DashProfile = () => {
           </button>
           <div className="w-full flex justify-between items-center my-2">
             <p className="text-red-600 underline cursor-pointer">Sign out</p>
-            <p className="text-red-600 underline cursor-pointer">
+            <p
+              className="text-red-600 underline cursor-pointer"
+              onClick={handleOpenDeleteModal}
+            >
               Delete Account
             </p>
           </div>
@@ -214,6 +254,15 @@ const DashProfile = () => {
         </form>
       </div>
       {loading && <Loader />}
+      {isModalDeleteOpen && (
+        <ConfirmationModal
+          isOpen={handleOpenDeleteModal}
+          onClose={handleCloseDeleteModal}
+          onConfirm={handleDeleteUser}
+          title="Delete Account"
+          message={`Are you sure you want to delete your account, ${currentUser.firstName}? This action cannot be undone.`}
+        />
+      )}
     </section>
   );
 };

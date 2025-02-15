@@ -5,10 +5,12 @@ import { ImProfile } from "react-icons/im";
 import { LiaSignOutAltSolid } from "react-icons/lia";
 import { useNavigates } from "../Contexts/NavContext";
 import Logo1 from "../../assets/Logos/Logo1.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { signoutSuccess } from "../../redux/user/userSlice";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const { activeLink } = useNavigates();
@@ -24,6 +26,24 @@ const Header = () => {
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  // Sign out functionality
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -143,7 +163,10 @@ const Header = () => {
                   <hr></hr>
                   {/* Sign out button */}
 
-                  <button className="w-full flex items-center gap-x-2 text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <button
+                    className="w-full flex items-center gap-x-2 text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={handleSignOut}
+                  >
                     <LiaSignOutAltSolid size={20} />
                     <span>Sign Out</span>
                   </button>
@@ -156,7 +179,9 @@ const Header = () => {
                 <Link to="/signup">Sign Up for free</Link>
               </button>
               <button className="button hidden md:block ">
-                <Link to="/signin">Sign In</Link>
+                <span>
+                  <Link to="/signin">Sign In</Link>
+                </span>
               </button>
             </div>
           )}
@@ -175,7 +200,7 @@ const Header = () => {
         {/* Mobile Menu */}
         {menuOpen && (
           <div
-            className={`absolute top-12 left-0 w-full shadow-lg flex flex-col items-center md:hidden z-50`}
+            className={`absolute bg-white top-12 left-0 w-full shadow-lg flex flex-col items-center md:hidden z-50`}
           >
             <ul className="flex flex-col gap-4 font-semibold py-6">
               <li>

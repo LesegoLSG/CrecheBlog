@@ -4,7 +4,11 @@ import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { app } from "../../firebase";
 import { useDispatch } from "react-redux";
-import { signInSuccess } from "../../redux/user/userSlice";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../../redux/user/userSlice";
 
 const OAuthButton = () => {
   const auth = getAuth(app);
@@ -15,8 +19,10 @@ const OAuthButton = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
 
+    dispatch(signInStart());
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
+      console.log(resultsFromGoogle);
       const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -26,16 +32,20 @@ const OAuthButton = () => {
           googlePhotoUrl: resultsFromGoogle.user.photoURL,
         }),
       });
-      if (!res.ok) {
-        throw new Error("Failed to authenticate");
-      }
 
       const data = await res.json();
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate(-1);
       }
+
+      console.log("res", res);
+      if (!res.ok) {
+        dispatch(signInFailure());
+        throw new Error("Failed to authenticate");
+      }
     } catch (error) {
+      dispatch(signInFailure());
       console.log(error);
     }
   };

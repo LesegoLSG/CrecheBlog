@@ -9,7 +9,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message }) => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
-        className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md"
+        className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md mx-1 md:mx-0"
       >
         {/* Header */}
         <div className="flex justify-between items-center">

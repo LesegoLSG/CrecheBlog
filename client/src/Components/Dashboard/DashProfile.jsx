@@ -9,12 +9,15 @@ import {
   deleteStart,
   deleteSuccess,
   deleteFailure,
+  signoutSuccess,
 } from "../../redux/user/userSlice";
 import Loader from "../Reusables/Loader";
 import ConfirmationModal from "../Reusables/ConfirmationModal";
+import { useNavigate } from "react-router-dom";
 
 const DashProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentUser, error, loading } = useSelector((state) => state.user);
   // Image States
   const [imageFile, setImageFile] = useState(null);
@@ -24,17 +27,11 @@ const DashProfile = () => {
   const [imageFileUploadingError, setImageFileUploadError] = useState(null);
   const filePickerRef = useRef();
 
+  // Error state
+  const [updateUserSuccess, setUpdateUserSuccess] = useState("");
+
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-  // Open modal
-  const handleOpenDeleteModal = () => {
-    setIsModalDeleteOpen(true);
-  };
-
-  // Close modal
-  const handleCloseDeleteModal = () => {
-    setIsModalDeleteOpen(false);
-  };
-
+  const [isModalSignoutOpen, setIsModalSignoutOpen] = useState(false);
   //   form data state
   const [formData, setFormData] = useState({
     firstName: currentUser.firstName,
@@ -43,8 +40,25 @@ const DashProfile = () => {
     email: currentUser.email,
   });
 
-  // Error state
-  const [updateUserSuccess, setUpdateUserSuccess] = useState("");
+  // Open delete modal
+  const handleOpenDeleteModal = () => {
+    setIsModalDeleteOpen(true);
+  };
+
+  // Close delete modal
+  const handleCloseDeleteModal = () => {
+    setIsModalDeleteOpen(false);
+  };
+
+  // Open signout modal
+  const handleOpenSignoutModal = () => {
+    setIsModalSignoutOpen(true);
+  };
+
+  // Close signout modal
+  const handleCloseSignoutDeleteModal = () => {
+    setIsModalSignoutOpen(false);
+  };
 
   //   upload image when image file exists
   useEffect(() => {
@@ -95,6 +109,25 @@ const DashProfile = () => {
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
+    }
+  };
+
+  // Sign out functionality
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+      setIsModalSignoutOpen(false);
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -240,7 +273,12 @@ const DashProfile = () => {
             <span>Edit</span>
           </button>
           <div className="w-full flex justify-between items-center my-2">
-            <p className="text-red-600 underline cursor-pointer">Sign out</p>
+            <p
+              className="text-red-600 underline cursor-pointer"
+              onClick={handleOpenSignoutModal}
+            >
+              Sign out
+            </p>
             <p
               className="text-red-600 underline cursor-pointer"
               onClick={handleOpenDeleteModal}
@@ -254,6 +292,7 @@ const DashProfile = () => {
         </form>
       </div>
       {loading && <Loader />}
+      {/* Delete modal */}
       {isModalDeleteOpen && (
         <ConfirmationModal
           isOpen={handleOpenDeleteModal}
@@ -261,6 +300,16 @@ const DashProfile = () => {
           onConfirm={handleDeleteUser}
           title="Delete Account"
           message={`Are you sure you want to delete your account, ${currentUser.firstName}? This action cannot be undone.`}
+        />
+      )}
+      {/* Signout modal */}
+      {isModalSignoutOpen && (
+        <ConfirmationModal
+          isOpen={handleOpenSignoutModal}
+          onClose={handleCloseSignoutDeleteModal}
+          onConfirm={handleSignOut}
+          title="Sign out"
+          message={`Are you sure you want to sign out?`}
         />
       )}
     </section>

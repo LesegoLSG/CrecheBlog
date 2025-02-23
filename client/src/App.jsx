@@ -9,6 +9,10 @@ import { NavigationProvider } from "./Components/Contexts/NavContext";
 import Footer from "./Components/Footer/Footer";
 import PrivateRoute from "./Components/Routes/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
+import CreatePost from "./pages/CreatePost";
+import AdminPrivateRoute from "./Components/Routes/AdminPrivateRoute";
+import Services from "./pages/Services";
+import ServicesDetailsPage from "./pages/ServicesDetailsPage";
 
 const App = () => {
   return (
@@ -18,10 +22,16 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/service-details" element={<ServicesDetailsPage />} />
+
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<AdminPrivateRoute />}>
+            <Route path="/create-post" element={<CreatePost />} />
           </Route>
         </Routes>
         <Footer />

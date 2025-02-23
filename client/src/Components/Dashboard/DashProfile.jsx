@@ -91,8 +91,6 @@ const DashProfile = () => {
 
     try {
       dispatch(updateStart());
-      console.log("currentuser:", currentUser._id);
-      console.log("Full user details:", currentUser);
       const res = await fetch(`/api/user/updateUser/${currentUser._id}`, {
         method: "PUT",
         headers: {
@@ -286,9 +284,15 @@ const DashProfile = () => {
               Delete Account
             </p>
           </div>
-          <button className="button w-full">
-            <span>Create post</span>
-          </button>
+          {currentUser.isAdmin && (
+            <button
+              type="button"
+              className="button w-full"
+              onClick={() => navigate("/create-post")}
+            >
+              <span>Create post</span>
+            </button>
+          )}
         </form>
       </div>
       {loading && <Loader />}

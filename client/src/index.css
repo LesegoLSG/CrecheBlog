@@ -6,8 +6,8 @@
     /* Normal button */
     .button {
         @apply relative min-w-40 px-3 py-2 font-semibold rounded-lg 
-               bg-blue-500 text-white shadow-md overflow-hidden
-               transition-all duration-500 ease-in-out border-2 border-blue-500;
+               bg-action text-white shadow-md overflow-hidden
+               transition-all duration-500 ease-in-out border-2 border-action;
     }
 
     .button::before {
@@ -26,31 +26,41 @@
     }
 
     .button:hover span {
-        @apply text-black  ; 
+        @apply text-action ; 
     }
-    /* Delete button */
-    .button-delete {
+   
+     /* Opposite button */
+     .button-opposite {
         @apply relative min-w-40 px-3 py-2 font-semibold rounded-lg 
-               bg-red-500 text-white shadow-md overflow-hidden
-               transition-all duration-500 ease-in-out border-2 border-red-500;
+               bg-white text-action shadow-md overflow-hidden
+               transition-all duration-500 ease-in-out border-2 border-white;
     }
 
-    .button-delete::before {
+    .button-opposite::before {
         content: "";
-        @apply absolute inset-0 bg-white 
+        @apply absolute inset-0 bg-action
                translate-y-full transition-all duration-500 ease-in-out 
                z-0 ;
     }
 
-    .button-delete:hover::before {
+    .button-opposite:hover::before {
         @apply translate-y-0 ;
     }
 
-    .button-delete span {
+    .button-opposite span {
         @apply relative z-10 transition-all duration-500 ease-in-out ;
     }
 
-    .button-delete:hover span {
-        @apply text-black  ; 
+    .button-opposite:hover span {
+        @apply text-white;
     }
+
+    /* Headers */
+    .heading{
+        @apply text-4xl font-bold text-neutral-900 font-cabinSketch
+    }
+    .subheading{
+        @apply text-lg
+    }
+
 }

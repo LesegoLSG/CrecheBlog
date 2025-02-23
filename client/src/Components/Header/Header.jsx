@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { LiaSignOutAltSolid } from "react-icons/lia";
@@ -26,6 +27,35 @@ const Header = () => {
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  // Scroll to a section
+  const scrollToSection = (section) => {
+    const homeSection = document.getElementById(section);
+    if (homeSection) {
+      const position = homeSection.offsetTop;
+      scroll.scrollTo(position, {
+        smooth: true,
+        duration: 500,
+        offset: -80,
+      });
+    }
+  };
+
+  // Navigating to the section
+  const handleNavigateActive = (section) => {
+    if (location.pathname === "/") {
+      scrollToSection(section);
+    } else {
+      navigate("/", { state: { scrollTo: section } });
+    }
+    setIsNav(false);
+  };
+
+  // Navigate and set toggle for mobile devices
+  const handleMobileClick = (section) => {
+    toggleMenu();
+    handleNavigateActive(section);
   };
 
   // Sign out functionality
@@ -66,44 +96,54 @@ const Header = () => {
         <div className="hidden md:flex items-center gap-6">
           <ul className={`flex gap-4  font-semibold `}>
             <li>
-              <Link
-                to="/"
+              <ScrollLink
+                onClick={() => handleNavigateActive("home")}
                 className={`${activeLink === "home" ? "text-blue-400" : ""}`}
               >
                 Home
-              </Link>
+              </ScrollLink>
             </li>
             <li>
-              <Link
-                to="/about"
-                className={`${activeLink === "about" ? "text-blue-400" : ""}`}
+              <ScrollLink
+                onClick={() => handleNavigateActive("about")}
+                className={`${
+                  activeLink === "about" ? "text-blue-400" : ""
+                } cursor-pointer`}
               >
                 About
-              </Link>
+              </ScrollLink>
             </li>
             <li>
-              <Link
-                to="/search"
+              <ScrollLink
+                onClick={() => handleNavigateActive("services")}
                 className={`${activeLink === "search" ? "text-blue-400" : ""}`}
               >
                 Services
-              </Link>
+              </ScrollLink>
             </li>
             <li>
-              <Link
-                to="/search"
+              <ScrollLink
+                onClick={() => handleNavigateActive("testimonials")}
                 className={`${activeLink === "search" ? "text-blue-400" : ""}`}
               >
                 Testimonials
-              </Link>
+              </ScrollLink>
             </li>
             <li>
-              <Link
-                to="/search"
+              <ScrollLink
+                onClick={() => handleNavigateActive("team")}
                 className={`${activeLink === "search" ? "text-blue-400" : ""}`}
               >
                 Our Team
-              </Link>
+              </ScrollLink>
+            </li>
+            <li>
+              <ScrollLink
+                onClick={() => handleNavigateActive("contact")}
+                className={`${activeLink === "search" ? "text-blue-400" : ""}`}
+              >
+                Contact
+              </ScrollLink>
             </li>
             <li>
               <Link
@@ -175,11 +215,13 @@ const Header = () => {
             </div>
           ) : (
             <div className="flex items-center gap-x-2">
-              <button className="button-alt hidden md:block ">
-                <Link to="/signup">Sign Up for free</Link>
-              </button>
               <button className="button hidden md:block ">
                 <span>
+                  <Link to="/signup">Sign Up for free</Link>
+                </span>
+              </button>
+              <button className="button-opposite hidden md:block ">
+                <span className="">
                   <Link to="/signin">Sign In</Link>
                 </span>
               </button>
@@ -204,52 +246,50 @@ const Header = () => {
           >
             <ul className="flex flex-col gap-4 font-semibold py-6">
               <li>
-                <Link
-                  to="/"
+                <ScrollLink
+                  onClick={() => handleMobileClick("home")}
                   className={`${activeLink === "home" ? "underline" : ""}`}
-                  onClick={toggleMenu}
                 >
                   Home
-                </Link>
+                </ScrollLink>
               </li>
               <li>
-                <Link
-                  to="/about"
+                <ScrollLink
+                  onClick={() => handleMobileClick("about")}
                   className={`${activeLink === "about" ? "underline" : ""}`}
-                  onClick={toggleMenu}
                 >
                   About
-                </Link>
+                </ScrollLink>
               </li>
               <li>
-                <Link
-                  to="/search"
+                <ScrollLink
+                  onClick={() => handleMobileClick("services")}
                   className={`${
                     activeLink === "search" ? "text-blue-400" : ""
                   }`}
                 >
                   Services
-                </Link>
+                </ScrollLink>
               </li>
               <li>
-                <Link
-                  to="/search"
+                <ScrollLink
+                  onClick={() => handleMobileClick("testimonials")}
                   className={`${
                     activeLink === "search" ? "text-blue-400" : ""
                   }`}
                 >
                   Testimonials
-                </Link>
+                </ScrollLink>
               </li>
               <li>
-                <Link
-                  to="/search"
+                <ScrollLink
+                  onClick={() => handleMobileClick("team")}
                   className={`${
                     activeLink === "search" ? "text-blue-400" : ""
                   }`}
                 >
                   Our Team
-                </Link>
+                </ScrollLink>
               </li>
               <li>
                 <Link
@@ -265,13 +305,13 @@ const Header = () => {
               <div className="flex flex-col items-center gap-y-4">
                 <button
                   onClick={() => navigate("/sign-up")}
-                  className="w-full button-alt"
+                  className="w-full button"
                 >
                   Sign up for free
                 </button>
                 <button
                   onClick={() => navigate("/sign-in")}
-                  className="w-full button"
+                  className="w-full button-opposite"
                 >
                   Sign In
                 </button>

@@ -6,14 +6,16 @@ import Services from "./Services";
 import Contact from "./Contact";
 import Testimonials from "./Testimonials";
 import Team from "./Team";
+import PostDisplay from "./PostDisplay";
 
 const Home = () => {
   return (
     <div className="w-full h-auto">
       <Banner />
-      <Metrix />
       <About />
+      <Metrix />
       <Services />
+      <PostDisplay />
       <Team />
       <Testimonials />
       <Contact />

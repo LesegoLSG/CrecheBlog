@@ -23,15 +23,15 @@ const TestimonialCard = ({ id, name, image, description, role, rating }) => {
   };
 
   return (
-    <div className="w-full h-auto p-6 space-y-10 group bg-neutral-800/10 rounded-xl border border-neutral-800/70">
-      <p className="text-neutral-300 text-base font-normal">{description}</p>
+    <div className="w-full h-auto p-4 space-y-10 group  rounded-xl border border-accent">
+      <p className="text-base font-normal">{description}</p>
       <div className="w-full flex items-center justify-between">
         {/* Image, name and role */}
         <div className="flex items-center gap-3">
           <img
             src={image}
             alt="image-testimonial"
-            className="w-10 h-12 object-center object-cover rounded-full border"
+            className="w-12 h-12 object-center object-cover rounded-full border"
           />
 
           <div className="flex flex-col  items-start">

@@ -45,18 +45,20 @@ const Testimonials = () => {
 
   return (
     <section
-      className="w-full h-full space-y-5 relative lg:px-24 md:px-16 sm:px-7 px-4 flex justify-center items-center flex-col"
+      className="w-full h-auto bg-backgroundAlt text-white space-y-5 relative py-8 lg:px-24 md:px-16 sm:px-7 px-4 flex justify-center items-center flex-col"
       id="testimonials"
     >
-      <div className="w-full max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto space-y-4">
         <div className="">
-          <h3>Testimonials</h3>
-          <h1 className="heading">Why Parents Trust Us: Hear From Them</h1>
+          <h3 className="subheading">Testimonials</h3>
+          <h1 className="heading text-white">
+            Why Parents Trust Us: Hear From Them
+          </h1>
         </div>
         {/* Custom buttons */}
         <div className="w-full max-w-7xl flex justify-end items-center gap-6">
           <button
-            className={`custom-prev text-neutral-500 bg-blue-600 hover:bg-blue-700 p-2 rounded-full z-10 ${
+            className={`custom-prev text-white bg-action hover:bg-action/50 p-2 rounded-full z-10 ${
               isBeginning ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
             }`}
             disabled={isBeginning}
@@ -65,7 +67,7 @@ const Testimonials = () => {
             <FaChevronLeft size={20} />
           </button>
           <button
-            className={`custom-next text-neutral-500 bg-blue-600 hover:bg-blue-700 p-2 rounded-full z-10 ${
+            className={`custom-next text-white bg-action hover:bg-action/50 p-2 rounded-full z-10 ${
               isEnd ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
             }`}
             disabled={isEnd}

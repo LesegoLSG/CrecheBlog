@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ServiceList from "../Components/Services/ServiceList";
 import ServiceCardAlt from "../Components/Services/ServiceCardAlt";
 
 const ServicesDetailsPage = () => {
+  // Scroll to top when the page loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <section className="container h-auto ">
       {/* Heading */}

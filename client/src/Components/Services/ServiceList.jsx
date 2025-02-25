@@ -65,7 +65,7 @@ const ServiceList = [
       "Fostering communication skills with interactive lessons and activities.",
     description:
       "We prioritize language development in a fun and engaging way through storytelling, songs, and interactive lessons. Our activities help children expand their vocabulary, understand language structure, and improve their communication abilities. By encouraging verbal and non-verbal communication, we build the foundation for strong language skills that will support their academic and social success.",
-    color: "#FFB6C1",
+    color: "#5A189A",
   },
   {
     id: 6,
@@ -76,7 +76,7 @@ const ServiceList = [
     description:
       "Our infant care program provides a nurturing and secure environment for babies, where they receive individual attention and loving care. We focus on creating a stimulating space with age-appropriate activities that support early development. Each baby’s needs are carefully met, ensuring they feel comfortable and secure while forming a strong bond with their caregivers.",
 
-    color: "#FFB6C1",
+    color: "#1B1A55",
   },
 ];
 

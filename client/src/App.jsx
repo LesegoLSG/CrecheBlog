@@ -13,17 +13,21 @@ import CreatePost from "./pages/CreatePost";
 import AdminPrivateRoute from "./Components/Routes/AdminPrivateRoute";
 import Services from "./pages/Services";
 import ServicesDetailsPage from "./pages/ServicesDetailsPage";
+import TopScroller from "./Components/Reusables/TopScroller";
+import AboutDetailsPage from "./pages/AboutDetailsPage";
 
 const App = () => {
   return (
     <BrowserRouter>
       <NavigationProvider>
         <Header />
+        <TopScroller />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/service-details" element={<ServicesDetailsPage />} />
+          <Route path="/about-details" element={<AboutDetailsPage />} />
 
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />

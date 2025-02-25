@@ -78,7 +78,7 @@ const Header = () => {
 
   return (
     <header
-      className={`w-full px-4 py-2 md:px-16 border-b-2 
+      className={`w-full px-4 py-2 md:px-16 border-b-2 bg-gradient-to-r from-background to-white
    `}
     >
       <div className="flex justify-between items-center">

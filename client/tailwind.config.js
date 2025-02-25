@@ -8,8 +8,9 @@ export default {
     extend: {
       colors: {
         background: '#DBEAFE', // Light grey for background
+        backgroundAlt:'#001F3F', // Deep navy for alternative background
         action: '#FF8000',      // Vibrant orange for call-to-action
-        accent: '#219B9D',      // Teal for accents
+        accent: '#003366',      // Teal for accents
         other: '#4C1F7A',       // Deep purple for text and secondary elements
       },
       fontFamily:{

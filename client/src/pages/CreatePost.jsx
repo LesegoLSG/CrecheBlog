@@ -25,17 +25,11 @@ const CreatePost = () => {
     title: "",
     category: "",
     content: "",
-    upcoming: false,
   });
 
   // Handle input change
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Handle checkbox change
-  const handleCheckboxChange = (e) => {
-    setFormData({ ...formData, upcoming: e.target.checked });
   };
 
   // Handle upload image
@@ -84,6 +78,7 @@ const CreatePost = () => {
   const handlePublishPost = async (e) => {
     e.preventDefault();
     console.log("publish data:", formData);
+    console.log("publish data:");
 
     // try {
     //   const res = await fetch("/api/post/create", {
@@ -194,22 +189,8 @@ const CreatePost = () => {
           onChange={(value) => {
             setFormData({ ...formData, content: value });
           }}
-          // required={true}
+          required={true}
         />
-
-        {/* Upcoming Post Checkbox */}
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="upcoming"
-            checked={formData.upcoming}
-            onChange={handleCheckboxChange}
-            className="w-4 h-4 cursor-pointer"
-          />
-          <label htmlFor="upcoming" className="text-sm font-medium">
-            Mark as Upcoming Post
-          </label>
-        </div>
 
         {/* display publish error */}
         {publishError && (
@@ -219,7 +200,7 @@ const CreatePost = () => {
         )}
         <button
           className="p-4 bg-blue-400 cursor-pointer"
-          disabled={!formData.image || imageFileUploadingProgress}
+          // disabled={!formData.image || imageFileUploadingProgress}
           type="submit"
         >
           Publish

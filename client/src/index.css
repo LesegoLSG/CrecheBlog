@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.ql-editor{
+    font-size: 1.05rem;
+}
+
 @layer components {
     /* Normal button */
     .button {

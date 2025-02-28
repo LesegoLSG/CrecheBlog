@@ -66,7 +66,7 @@ const DashboardSideBar = () => {
       <div
         className={`${
           open ? "w-72" : "w-20"
-        } duration-300  p-5 pt-8  relative hidden sm:block shadow-2xlS bg-blue-300`}
+        } duration-300  p-5 pt-8  relative hidden sm:block shadow-2xlS bg-accent text-white`}
       >
         <button
           onClick={() => setOpen(!open)}

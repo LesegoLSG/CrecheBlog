@@ -80,31 +80,31 @@ const CreatePost = () => {
     console.log("publish data:", formData);
     console.log("publish data:");
 
-    // try {
-    //   const res = await fetch("/api/post/create", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
+    try {
+      const res = await fetch("/api/post/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    //   const data = await res.json();
+      const data = await res.json();
 
-    //   if (!res.ok) {
-    //     setPublishError(data.message);
-    //     return;
-    //   } else {
-    //     setPublishError(null);
-    //     navigate(`/post/${data.slug}`);
-    //   }
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      } else {
+        setPublishError(null);
+        navigate(`/post/${data.slug}`);
+      }
 
-    //   if (data) {
-    //     console.log("Post created successfully");
-    //   }
-    // } catch (error) {
-    //   setPublishError("Error publishing your post, please try again");
-    // }
+      if (data) {
+        console.log("Post created successfully");
+      }
+    } catch (error) {
+      setPublishError("Error publishing your post, please try again");
+    }
   };
   return (
     <section className="max-w-4xl mx-auto p-4 min-h-screen">

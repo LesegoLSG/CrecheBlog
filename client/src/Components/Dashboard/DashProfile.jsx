@@ -153,9 +153,7 @@ const DashProfile = () => {
 
   return (
     <section className="w-full h-screen p-4">
-      <h1 className="text-xl font-semibold text-neutral-900 text-center">
-        Profile
-      </h1>
+      <h1 className="heading text-center">Profile</h1>
       <div className="w-full flex justify-center items-center mt-14">
         {/* Form */}
         <form

@@ -15,6 +15,7 @@ import Services from "./pages/Services";
 import ServicesDetailsPage from "./pages/ServicesDetailsPage";
 import TopScroller from "./Components/Reusables/TopScroller";
 import AboutDetailsPage from "./pages/AboutDetailsPage";
+import UpdatePost from "./pages/UpdatePost";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
           </Route>
           <Route element={<AdminPrivateRoute />}>
             <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/update-post/:postId" element={<UpdatePost />} />
           </Route>
         </Routes>
         <Footer />

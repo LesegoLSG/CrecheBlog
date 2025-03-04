@@ -91,7 +91,7 @@ const DashProfile = () => {
 
     try {
       dispatch(updateStart());
-      const res = await fetch(`/api/user/updateUser/${currentUser._id}`, {
+      const res = await fetch(`/api/user/updateuser/${currentUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ const DashProfile = () => {
 
     try {
       dispatch(deleteStart());
-      const response = await fetch(`/api/user/deleteUser/${currentUser._id}`, {
+      const response = await fetch(`/api/user/deleteuser/${currentUser._id}`, {
         method: "DELETE",
       });
 

@@ -15,6 +15,7 @@ const DashPosts = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
 
+  // Fetch posts when page loads
   useEffect(() => {
     if (currentUser && currentUser.isAdmin) {
       const fetchPosts = async () => {
@@ -40,6 +41,7 @@ const DashPosts = () => {
     }
   }, [currentUser._id]);
 
+  // Show more posts
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
@@ -58,11 +60,13 @@ const DashPosts = () => {
     }
   };
 
+  // Open delete modal
   const handleOpenDeleteModal = (id) => {
     setShowDeleteModal(true);
     setPostIdToDelete(id);
   };
 
+  // Delete functionality
   const handleConfirmDelete = async (e) => {
     e.preventDefault();
 
@@ -91,6 +95,7 @@ const DashPosts = () => {
     }
   };
 
+  // Close delete modal
   const handleCancelDelete = () => {
     setShowDeleteModal(false);
   };

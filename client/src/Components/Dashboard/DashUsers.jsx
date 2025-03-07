@@ -16,9 +16,7 @@ const DashUsers = () => {
     if (currentUser && currentUser.isAdmin) {
       const fetchUsers = async () => {
         try {
-          const res = await fetch(
-            `/api/user/getUsers?userId=${currentUser._id}`
-          );
+          const res = await fetch(`/api/user/getusers`);
           const data = await res.json();
           console.log(data);
           if (res.ok) {
@@ -113,44 +111,45 @@ const DashUsers = () => {
                 </tr>
               </thead>
               <tbody className={`border-x`}>
-                {users.map((user) => (
-                  <tr key={user._id} className="text-center">
-                    {/* Date */}
-                    <td className={`border-b font-semibold `}>
-                      {new Date(user.createdAt).toLocaleDateString()}
-                    </td>
-                    {/* ProfilePicture */}
-                    <td className={`border-b  `}>
-                      <img
-                        src={user.profilePicture}
-                        alt={user.title}
-                        className="w-16 h-16 object-cover rounded-full mx-auto"
-                      />
-                    </td>
-                    {/* Full Name */}
-                    <td className={`border-b  p-2 `}>
-                      {user.firstName + " " + user.lastName}
-                    </td>
-                    {/* Email address */}
-                    <td className={`border-b  p-2 `}>{user.email}</td>
-                    {/* Contact */}
-                    <td className={`border-b  p-2 `}>{user.contact}</td>
-                    {/* isAdmin*/}
-                    <td className={`border-b  p-2 `}>
-                      {user.isAdmin ? "YES" : "No"}
-                    </td>
-                    {/* Delete */}
-                    <td className={`border-b border-r-0 p-2 `}>
-                      <div className="flex justify-center items-center cursor-pointer">
-                        <MdDelete
-                          className="text-red-600 hover:underline"
-                          onClick={() => handleOpenDeleteModal(user._id)}
-                          size={20}
+                {users &&
+                  users.map((user) => (
+                    <tr key={user._id} className="text-center">
+                      {/* Date */}
+                      <td className={`border-b font-semibold `}>
+                        {new Date(user.createdAt).toLocaleDateString()}
+                      </td>
+                      {/* ProfilePicture */}
+                      <td className={`border-b  `}>
+                        <img
+                          src={user.profilePicture}
+                          alt={user.title}
+                          className="w-16 h-16 object-cover rounded-full mx-auto"
                         />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      {/* Full Name */}
+                      <td className={`border-b  p-2 `}>
+                        {user.firstName + " " + user.lastName}
+                      </td>
+                      {/* Email address */}
+                      <td className={`border-b  p-2 `}>{user.email}</td>
+                      {/* Contact */}
+                      <td className={`border-b  p-2 `}>{user.contact}</td>
+                      {/* isAdmin*/}
+                      <td className={`border-b  p-2 `}>
+                        {user.isAdmin ? "YES" : "No"}
+                      </td>
+                      {/* Delete */}
+                      <td className={`border-b border-r-0 p-2 `}>
+                        <div className="flex justify-center items-center cursor-pointer">
+                          <MdDelete
+                            className="text-red-600 hover:underline"
+                            onClick={() => handleOpenDeleteModal(user._id)}
+                            size={20}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             {showMore && (

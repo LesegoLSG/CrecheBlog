@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
@@ -20,6 +20,15 @@ const Header = () => {
   const dropdownRef = useRef(null);
 
   const location = useLocation();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+  console.log("searchTerm", searchTerm);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -74,6 +83,15 @@ const Header = () => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  // Handle submission of a search term
+  const handleSubmitSearch = async (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
   };
 
   return (
@@ -157,7 +175,10 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
-        <form className="hidden md:flex items-center border rounded-md px-2 bg-gray-100">
+        <form
+          className="hidden md:flex items-center border rounded-md px-2 bg-gray-100"
+          onSubmit={handleSubmitSearch}
+        >
           <input
             type="text"
             placeholder="Search..."
@@ -325,6 +346,7 @@ const Header = () => {
         className={`flex  md:hidden justify-between items-center p-1 my-2 bg-gray-100 shadow-sm rounded-md ${
           location.pathname === "/search" ? "hidden" : "block"
         }`}
+        onSubmit={handleSubmitSearch}
       >
         <input
           type="text"

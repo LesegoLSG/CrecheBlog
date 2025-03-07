@@ -20,12 +20,11 @@ const DashPosts = () => {
     if (currentUser && currentUser.isAdmin) {
       const fetchPosts = async () => {
         try {
-          const res = await fetch(
-            `/api/post/getposts?userId=${currentUser._id}`
-          );
+          const res = await fetch(`/api/post/getposts`);
           const data = await res.json();
-          console.log(data);
+          console.log("data:", data);
           if (res.ok) {
+            console.log("data.posts", data.posts);
             setUserPosts(data.posts);
             if (data.posts.length < 9) {
               setShowMore(false);
@@ -40,6 +39,7 @@ const DashPosts = () => {
       }
     }
   }, [currentUser._id]);
+  console.log("Posts:", userPosts);
 
   // Show more posts
   const handleShowMore = async () => {
@@ -102,7 +102,7 @@ const DashPosts = () => {
 
   return (
     <section className={`min-h-screen p-4`}>
-      <h1 className="heading text-center">Dashboard</h1>
+      <h1 className="heading text-center">Posts</h1>
       <div className="p-4 max-w-full  overflow-x-auto">
         {currentUser.isAdmin && userPosts.length > 0 ? (
           <>
@@ -118,40 +118,41 @@ const DashPosts = () => {
                 </tr>
               </thead>
               <tbody className={`border-x `}>
-                {userPosts.map((post) => (
-                  <tr key={post._id} className="text-center">
-                    <td className={`border-b  font-semibold `}>
-                      {new Date(post.createdAt).toLocaleDateString()}
-                    </td>
-                    <td className={`border-b  `}>
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-16 h-16 object-cover mx-auto"
-                      />
-                    </td>
-                    <td className={`border-b  `}>
-                      <Link to={`/post/${post.slug}`}>{post.title}</Link>
-                    </td>
-                    <td className={`border-b  `}>{post.category}</td>
-                    <td className={`border-b  `}>
-                      <div className="flex justify-center items-center">
-                        <Link to={`/update-post/${post._id}`}>
-                          <FaEdit size={20} className="text-green-600" />
-                        </Link>
-                      </div>
-                    </td>
-                    <td className={`border-b  `}>
-                      <div className="flex justify-center items-center">
-                        <MdDelete
-                          className="text-red-600 hover:underline cursor-pointer"
-                          onClick={() => handleOpenDeleteModal(post._id)}
-                          size={20}
+                {userPosts &&
+                  userPosts.map((post) => (
+                    <tr key={post._id} className="text-center">
+                      <td className={`border-b  font-semibold `}>
+                        {new Date(post.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className={`border-b  `}>
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-16 h-16 object-cover mx-auto"
                         />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className={`border-b  `}>
+                        <Link to={`/post/${post.slug}`}>{post.title}</Link>
+                      </td>
+                      <td className={`border-b  `}>{post.category}</td>
+                      <td className={`border-b  `}>
+                        <div className="flex justify-center items-center">
+                          <Link to={`/update-post/${post._id}`}>
+                            <FaEdit size={20} className="text-green-600" />
+                          </Link>
+                        </div>
+                      </td>
+                      <td className={`border-b  `}>
+                        <div className="flex justify-center items-center">
+                          <MdDelete
+                            className="text-red-600 hover:underline cursor-pointer"
+                            onClick={() => handleOpenDeleteModal(post._id)}
+                            size={20}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             {showMore && (

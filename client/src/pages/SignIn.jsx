@@ -120,7 +120,7 @@ const SignIn = () => {
           </span>
         </p>
       </div>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
     </section>
   );
 };

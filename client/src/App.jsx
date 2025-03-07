@@ -16,6 +16,9 @@ import ServicesDetailsPage from "./pages/ServicesDetailsPage";
 import TopScroller from "./Components/Reusables/TopScroller";
 import AboutDetailsPage from "./pages/AboutDetailsPage";
 import UpdatePost from "./pages/UpdatePost";
+import PostPage from "./pages/PostPage";
+import ScrollToTop from "./Components/Reusables/ScrollToTop";
+import SearchPage from "./pages/SearchPage";
 
 const App = () => {
   return (
@@ -23,6 +26,7 @@ const App = () => {
       <NavigationProvider>
         <Header />
         <TopScroller />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -32,6 +36,10 @@ const App = () => {
 
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+
+          <Route path="/post/:postSlug" element={<PostPage />} />
+          <Route path="/search" element={<SearchPage />} />
+
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>

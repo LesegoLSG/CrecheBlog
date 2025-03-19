@@ -263,7 +263,7 @@ const Header = () => {
         {/* Mobile Menu */}
         {menuOpen && (
           <div
-            className={`absolute bg-white top-12 left-0 w-full shadow-lg flex flex-col items-center md:hidden z-50`}
+            className={`absolute bg-accent text-white top-12 left-0 w-full shadow-lg flex flex-col items-center md:hidden z-50`}
           >
             <ul className="flex flex-col gap-4 font-semibold py-6">
               <li>

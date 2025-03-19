@@ -10,7 +10,7 @@ const PostCard = ({ post }) => {
   const currentURL = `${window.location.origin}/post/${post.slug}`;
 
   return (
-    <div className="relative  rounded-lg shadow-lg overflow-hidden w-80">
+    <div className="relative max-w-96 h-auto rounded-lg shadow-lg overflow-hidden ">
       {/* Image Section */}
       <div className="relative">
         <img
@@ -30,8 +30,11 @@ const PostCard = ({ post }) => {
 
       {/* Content Section */}
       <div className="px-2">
-        <h2 className="text-[0.95rem] line-clamp-3">{post.title}</h2>
-        <div className="flex justify-between items-center">
+        <div className="min-h-10">
+          <h2 className="text-[0.95rem] line-clamp-2">{post.title}</h2>
+        </div>
+
+        <div className="flex justify-between items-center my-2">
           <ShareButton
             shareUrl={currentURL}
             shareBtnSize={20}

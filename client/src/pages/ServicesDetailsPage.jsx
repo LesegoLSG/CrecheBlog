@@ -9,10 +9,10 @@ const ServicesDetailsPage = () => {
   }, []);
 
   return (
-    <section className="container h-auto ">
+    <section className="w-full h-auto ">
       {/* Heading */}
-      <div className="w-full h-[16rem] bg-red-600 flex flex-col justify-center items-center gap-4">
-        <h2 className="text-4xl font-bold text-center">
+      <div className="w-full h-[16rem] bg-accent text-white flex flex-col justify-center items-center gap-4">
+        <h2 className="heading text-white">
           Exciting Services for Every Child!
         </h2>
         <p className="text-xl text-center">

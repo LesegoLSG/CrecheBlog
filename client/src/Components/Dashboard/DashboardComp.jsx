@@ -11,71 +11,60 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useSelector } from "react-redux";
+import Loader from "../Reusables/Loader";
 
 const DashboardComp = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
-  const [totalUsers, setTotalUsers] = useState(0);
-  const [totalPosts, setTotalPosts] = useState(0);
-  const [totalComments, setTotalComments] = useState(0);
 
   const { currentUser } = useSelector((state) => state.user);
 
+  const [isLoading, setIsloading] = useState(true);
+
   useEffect(() => {
+    setIsloading(true);
     const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/user/getusers?limit=5");
+        const res = await fetch("/api/user/getusers");
         const data = await res.json();
         setUsers(data.users);
-        setTotalUsers(data.totalUsers);
       } catch (error) {
         console.log(error);
+        setIsloading(false);
       }
     };
     const fetchPosts = async () => {
       try {
-        const res = await fetch("/api/post/getposts?limit=5");
+        const res = await fetch("/api/post/getposts");
         const data = await res.json();
         setPosts(data.posts);
-        setTotalPosts(data.totalPosts);
+        console.log("POsts length:", posts);
       } catch (error) {
         console.log(error);
+        setIsloading(false);
       }
     };
     const fetchComments = async () => {
       try {
         const res = await fetch("/api/comment/getcommentslist");
-
         const data = await res.json();
         console.log("data comments", data);
         setComments(data);
-        setTotalComments(data.totalComments);
       } catch (error) {
         console.log(error);
+        console.log(false);
       }
     };
     if (currentUser.isAdmin) {
       fetchUsers();
       fetchPosts();
       fetchComments();
+      setIsloading(false);
     }
-  }, [users, posts, comments]);
-
-  // Sample Data
-  // const users = [
-  //   { id: 1, name: "John Doe", email: "john@example.com" },
-  //   { id: 2, name: "Jane Smith", email: "jane@example.com" },
-  // ];
-  // const posts = [
-  //   { id: 1, title: "First Post", author: "John Doe" },
-  //   { id: 2, title: "Second Post", author: "Jane Smith" },
-  // ];
-  // const comments = [
-  //   { id: 1, text: "Nice post!", user: "John Doe" },
-  //   { id: 2, text: "Thanks for sharing!", user: "Jane Smith" },
-  // ];
+    setIsloading(false);
+  }, [currentUser?.isAdmin]);
 
   const data = [
     { name: "Jan", users: 20, posts: 10, comments: 30 },
@@ -167,7 +156,7 @@ const DashboardComp = () => {
 
           <ul className="space-y-2">
             {users &&
-              users.map((user) => (
+              users.slice(0, 5).map((user) => (
                 <li key={user.id} className="border-b pb-2">
                   <span className="font-medium">
                     {user.firstName} {user.lastName}
@@ -191,7 +180,7 @@ const DashboardComp = () => {
           </div>
           <ul className="space-y-2">
             {posts &&
-              posts.map((post) => (
+              posts.slice(0, 5).map((post) => (
                 <li key={post.id} className="border-b pb-2">
                   <span className="font-medium">{post.title}</span> by{" "}
                   {post.author}
@@ -213,7 +202,7 @@ const DashboardComp = () => {
           </div>
           <ul className="space-y-2">
             {comments &&
-              comments.map((comment) => (
+              comments.slice(0, 5).map((comment) => (
                 <li key={comment.id} className="border-b pb-2">
                   <span className="">{comment.content}</span>
                 </li>
@@ -221,6 +210,7 @@ const DashboardComp = () => {
           </ul>
         </div>
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import ConfirmationModal from "../Reusables/ConfirmationModal";
+import Loader from "../Reusables/Loader";
 
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -15,11 +16,14 @@ const DashPosts = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   // Fetch posts when page loads
   useEffect(() => {
     if (currentUser && currentUser.isAdmin) {
       const fetchPosts = async () => {
         try {
+          setIsLoading(true);
           const res = await fetch(`/api/post/getposts`);
           const data = await res.json();
           console.log("data:", data);
@@ -29,9 +33,11 @@ const DashPosts = () => {
             if (data.posts.length < 9) {
               setShowMore(false);
             }
+            setIsLoading(false);
           }
         } catch (error) {
           console.log(error);
+          setIsLoading(false);
         }
       };
       if (currentUser.isAdmin) {
@@ -45,6 +51,7 @@ const DashPosts = () => {
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
+      setIsLoading(true);
       const res = await fetch(
         `/api/post/getposts?/userId=${currentUser._id}&startIndex=${startIndex}`
       );
@@ -54,9 +61,11 @@ const DashPosts = () => {
         if (data.posts.length < 9) {
           setShowMore(false);
         }
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -176,6 +185,7 @@ const DashPosts = () => {
           message="Are you sure you want to delete this post?"
         />
       )}
+      {isLoading && <Loader />}
     </section>
   );
 };

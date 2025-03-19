@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import NoData from "../Reusables/displays/NoData";
-import ConfirmationModal from "../Reusables/ConfirmationModal";
+import Loader from "../Reusables/Loader";
 import { MdDelete } from "react-icons/md";
 
 const DashUsers = () => {
@@ -11,11 +11,14 @@ const DashUsers = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   //   Get all users
   useEffect(() => {
     if (currentUser && currentUser.isAdmin) {
       const fetchUsers = async () => {
         try {
+          setIsLoading(true);
           const res = await fetch(`/api/user/getusers`);
           const data = await res.json();
           console.log(data);
@@ -24,9 +27,11 @@ const DashUsers = () => {
             if (data.users.length < 9) {
               setShowMore(false);
             }
+            setIsLoading(false);
           }
         } catch (error) {
           console.log(error);
+          setIsLoading(false);
         }
       };
       if (currentUser.isAdmin) {
@@ -39,6 +44,7 @@ const DashUsers = () => {
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
+      setIsLoading(true);
       const res = await fetch(
         `/api/post/getposts?/userId=${currentUser._id}&startIndex=${startIndex}`
       );
@@ -48,9 +54,11 @@ const DashUsers = () => {
         if (data.users.length < 9) {
           setShowMore(false);
         }
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error.message);
+      setIsLoading(false);
     }
   };
   // Open delete modal
@@ -172,6 +180,7 @@ const DashUsers = () => {
           message="Are you sure you want to delete this user?"
         />
       )}
+      {isLoading && <Loader />}
     </section>
   );
 };

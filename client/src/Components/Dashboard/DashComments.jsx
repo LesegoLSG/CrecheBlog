@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { MdDelete } from "react-icons/md";
 import ConfirmationModal from "../Reusables/ConfirmationModal";
+import Loader from "../Reusables/Loader";
 
 const DashComments = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -9,14 +10,15 @@ const DashComments = () => {
   const [showMore, setShowMore] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState("");
-  console.log("Comments", comments);
-  console.log("CommentIdToDelete:", commentIdToDelete);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   //   Get all comments
   useEffect(() => {
     if (currentUser && currentUser.isAdmin) {
       const fetchComments = async () => {
         try {
+          setIsLoading(true);
           const res = await fetch(`/api/comment/getcommentslist`);
           const data = await res.json();
           console.log("Data", data);
@@ -26,9 +28,11 @@ const DashComments = () => {
             if (data && data.length < 9) {
               setShowMore(false);
             }
+            setIsLoading(false);
           }
         } catch (error) {
           console.log(error);
+          setIsLoading(false);
         }
       };
       if (currentUser.isAdmin) {
@@ -41,6 +45,7 @@ const DashComments = () => {
   const handleShowMore = async () => {
     const startIndex = comments.length;
     try {
+      setIsLoading(true);
       const res = await fetch(
         `/api/post/getposts?/userId=${currentUser._id}&startIndex=${startIndex}`
       );
@@ -50,9 +55,11 @@ const DashComments = () => {
         if (data.comments.length < 9) {
           setShowMore(false);
         }
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error.message);
+      setIsLoading(false);
     }
   };
   // Open delete modal
@@ -170,6 +177,7 @@ const DashComments = () => {
           message="Are you sure you want to delete this comment?"
         />
       )}
+      {isLoading && <Loader />}
     </section>
   );
 };

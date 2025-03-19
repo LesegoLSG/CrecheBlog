@@ -6,7 +6,7 @@ import ContactDetails from "../Components/Contact/ContactDetails";
 const Contact = () => {
   return (
     <section
-      className="container h-auto bg-background pt-16 flex flex-col gap-y-10"
+      className="w-full h-auto bg-background pt-24 flex flex-col gap-y-10"
       id="contact"
     >
       <div className="w-full max-w-7xl mx-auto grid  grid-col-1 lg:grid-cols-2 gap-10">

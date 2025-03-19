@@ -19,6 +19,7 @@ import UpdatePost from "./pages/UpdatePost";
 import PostPage from "./pages/PostPage";
 import ScrollToTop from "./Components/Reusables/ScrollToTop";
 import SearchPage from "./pages/SearchPage";
+import Donate from "./pages/Donate";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/service-details" element={<ServicesDetailsPage />} />
           <Route path="/about-details" element={<AboutDetailsPage />} />
+          <Route path="/donation" element={<Donate />} />
 
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
